@@ -1,5 +1,5 @@
 {
-  "name": "homeboard_site",
+  "name": "homeboard",
   "app_id": "",
   "gulpStartupTasks": [
     "sass",
