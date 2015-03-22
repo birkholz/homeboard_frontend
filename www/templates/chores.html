@@ -12,17 +12,21 @@
             <div class="item item-body">
                 <h2>{{chore.title}}</h2>
                 <p>{{chore.description}}</p>
+                <span ng-if="chore.pretty_completed">Completed {{chore.pretty_completed}}</span>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <div class="tab-item energized" ng-click="uncompleteChore(chore)" ng-if="chore.completed">
+                <div class="tab-item energized" ng-click="uncompleteChore(chore)" ng-if="chore.pretty_completed">
                     <i class="icon ion-ios-close-empty"></i>
                     Uncomplete
                 </div>
-                <div class="tab-item balanced" ng-click="completeChore(chore)" ng-if="!chore.completed">
+                <div class="tab-item balanced" ng-click="completeChore(chore)" ng-if="!chore.pretty_completed">
                     <i class="icon ion-ios-checkmark-empty"></i>
                     Complete
                 </div>
-                <div class="tab-item" ng-click="$state.transitionTo('app.chore_update', {'choreId': chore.id})">
+                <div
+                        class="tab-item"
+                        ng-click="$state.transitionTo('app.chore_update', {'choreId': chore.id})"
+                        ng-if="!chore.pretty_completed">
                     <i class="icon ion-ios-compose-outline"></i>
                     Edit
                 </div>
