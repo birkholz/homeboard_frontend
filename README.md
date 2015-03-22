@@ -16,4 +16,5 @@ to build for ios/android, add the platform
 ```
 ionic platform add ios
 ionic platform add android
+ionic browser add crosswalk
 ```
