@@ -1,0 +1,33 @@
+<ion-view view-title="Chores" cache-view="false">
+    <ion-content>
+        <div class="list card" ng-repeat="chore in chores" href="#/app/chores/{{chore.id}}">
+            <div class="item item-body">
+                <h2>{{chore.title}}</h2>
+                <p>{{chore.description}}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <div class="tab-item balanced">
+                    <i class="icon ion-ios-checkmark-empty"></i>
+                    Complete
+                </div>
+                <div class="tab-item" ng-click="$state.transitionTo('app.chore_update', {'choreId': chore.id})">
+                    <i class="icon ion-ios-compose-outline"></i>
+                    Edit
+                </div>
+                <div class="tab-item">
+                    <i class="icon ion-ios-personadd-outline"></i>
+                    Assign
+                </div>
+                <div class="tab-item assertive" ng-click="confirmDeleteChore(chore)">
+                    <i class="icon ion-ios-close-empty"></i>
+                    Delete
+                </div>
+            </div>
+        </div>
+        <div class="card" ng-click="$state.transitionTo('app.chore_create')">
+            <div class="item item-text-wrap text-center">
+                <span class="positive">Add Chore</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

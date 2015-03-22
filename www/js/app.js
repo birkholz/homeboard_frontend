@@ -1,6 +1,6 @@
 angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngCookies'])
 
-    .run(function ($ionicPlatform, $rootScope, $localStorage, $state, $http) {
+    .run(function ($ionicPlatform, $rootScope, $localStorage, $state, $http, $stateParams) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -13,6 +13,8 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
             }
         });
 
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
             var requireLogin = toState.data.requireLogin;
             var blockLoggedIn = toState.data.blockLoggedIn;
@@ -96,15 +98,56 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
                 }
             })
 
-            .state('app.home', {
-                url: "/homes/:homeId",
+            .state('app.home_update', {
+                url: "/home/:homeId/update",
                 views: {
                     'menuContent': {
-                        templateUrl: "templates/home.html",
-                        controller: 'HomeCtrl'
+                        templateUrl: "templates/home_update.html",
+                        controller: 'HomeUpdateCtrl'
                     }
                 }
-            });
+            })
+
+            .state('app.chores', {
+               url: "/chores",
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/chores.html",
+                        controller: 'ChoresCtrl'
+                    }
+                }
+            })
+
+            .state('app.chore_create', {
+                url: "/chore/create",
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/chore_create.html",
+                        controller: 'ChoreCreateCtrl'
+                    }
+                }
+            })
+
+            .state('app.chore_update', {
+                url: "/chore/:choreId/update",
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/chore_update.html",
+                        controller: 'ChoreUpdateCtrl'
+                    }
+                }
+            })
+        ;
+
+//            .state('app.home', {
+//                url: "/homes/:homeId",
+//                views: {
+//                    'menuContent': {
+//                        templateUrl: "templates/home.html",
+//                        controller: 'HomeCtrl'
+//                    }
+//                }
+//            });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/homes');
     });

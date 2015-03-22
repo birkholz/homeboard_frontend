@@ -1,0 +1,27 @@
+<ion-view view-title="Edit Home">
+    <ion-content>
+        <form role="form" ng-submit="update(homeForm)" name="homeForm" novalidate>
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Home Name</span>
+                    <input type="text" ng-model="home.title" placeholder="Home Name">
+                </label>
+                <div class="item item-icon-left topless assertive" ng-repeat="error in errors.title">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+                <div class="item item-icon-left topless assertive" ng-repeat="error in errors.non_field_errors">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+                <div class="item item-icon-left topless assertive" ng-if="error">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+                <label class="item">
+                    <button class="button button-block button-positive" type="submit">Add</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
