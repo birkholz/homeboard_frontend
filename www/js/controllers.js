@@ -1,10 +1,50 @@
 angular.module('homeboard.controllers', [])
 
+    .controller('rootCtrl', function($state, djangoAuth) {
+
+    })
+
+    .controller('LoginCtrl', function ($scope, djangoAuth, Validate, $state) {
+        $scope.model = {'username': '', 'password': ''};
+        $scope.complete = false;
+        $scope.login = function (formData) {
+            $scope.errors = [];
+            Validate.form_validation(formData, $scope.errors);
+            if (!formData.$invalid) {
+                djangoAuth.login($scope.model.username, $scope.model.password)
+                    .then(function (data) {
+                        $scope.model = {'username': '', 'password': ''};
+                        $state.transitionTo('app.homes')
+                    }, function (data) {
+                        $scope.errors = data;
+                    });
+            }
+        }
+    })
+
+    .controller('RegisterCtrl', function ($scope, djangoAuth, Validate, $state) {
+        $scope.model = {'username': '', 'password': ''};
+        $scope.complete = false;
+        $scope.login = function (formData) {
+            $scope.errors = [];
+            Validate.form_validation(formData, $scope.errors);
+            if (!formData.$invalid) {
+                djangoAuth.login($scope.model.username, $scope.model.password)
+                    .then(function (data) {
+                        $scope.model = {'username': '', 'password': ''};
+                        $state.transitionTo('app.homes')
+                    }, function (data) {
+                        $scope.errors = data;
+                    });
+            }
+        }
+    })
+
     .controller('AppCtrl', function ($localStorage, $scope, djangoAuth, $state) {
         $scope.doLogout = function() {
             djangoAuth.logout()
                 .then(function() {
-                    $state.transitionTo('login');
+                    $state.transitionTo('root.login');
                 });
         };
         $scope.homeSelected = function() {
@@ -52,24 +92,6 @@ angular.module('homeboard.controllers', [])
                         })
                 }
             })
-        }
-    })
-
-    .controller('LoginCtrl', function ($scope, djangoAuth, Validate, $state) {
-        $scope.model = {'username': '', 'password': ''};
-        $scope.complete = false;
-        $scope.login = function (formData) {
-            $scope.errors = [];
-            Validate.form_validation(formData, $scope.errors);
-            if (!formData.$invalid) {
-                djangoAuth.login($scope.model.username, $scope.model.password)
-                    .then(function (data) {
-                        $scope.model = {'username': '', 'password': ''};
-                        $state.transitionTo('app.homes')
-                    }, function (data) {
-                        $scope.errors = data;
-                    });
-            }
         }
     })
 

@@ -23,7 +23,7 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
             // if the page requires login and the user isn't, redirect to login
             if (requireLogin && typeof $localStorage.token === 'undefined') {
                 event.preventDefault();
-                $state.transitionTo('login')
+                $state.transitionTo('root.login')
             }
             // if the page requires login, we have the token, but the header isn't set, set the header
             else if (requireLogin && typeof $localStorage.token !== 'undefined' &&
@@ -41,14 +41,34 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
 
-            .state('login', {
-                url: "/login",
-                templateUrl: "templates/login.html",
-                controller: 'LoginCtrl',
+            .state('root', {
+                url: '',
+                abstract: true,
+                templateUrl: "templates/root.html",
+                controller: 'rootCtrl',
                 data: {
                     requireLogin: false,
-                    blockLoggedIn: true,
-                    showToggle: false
+                    blockLoggedIn: true
+                }
+            })
+
+            .state('root.login', {
+                url: "/login",
+                views: {
+                    'login-tab': {
+                        templateUrl: "templates/login.html",
+                        controller: 'LoginCtrl'
+                    }
+                }
+            })
+
+            .state('root.register', {
+                url: "/register",
+                views: {
+                    'register-tab': {
+                        templateUrl: "templates/register.html",
+                        controller: 'RegisterCtrl'
+                    }
                 }
             })
 
@@ -59,8 +79,7 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
                 controller: 'AppCtrl',
                 data: {
                     requireLogin: true,
-                    blockLoggedIn: false,
-                    showToggle: false
+                    blockLoggedIn: false
                 }
             })
 
@@ -113,9 +132,6 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
 
             .state('app.chores', {
                 url: "/chores",
-                data: {
-                    showToggle: true
-                },
                 views: {
                     'menuContent': {
                         templateUrl: "templates/chores.html",

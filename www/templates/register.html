@@ -1,0 +1,51 @@
+<ion-view view-title="Register">
+    <ion-content>
+        <form role="form" ng-submit="register(registerForm)" name="registerForm" novalidate>
+            <div class="list list-inset">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Email</span>
+                    <input type="text" ng-model="model.email" placeholder="example@email.com">
+                </label>
+                <div class="item item-icon-left topless assertive" ng-repeat="error in errors.email">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Username</span>
+                    <input type="text" ng-model="model.username" placeholder="coolguy59">
+                </label>
+                <div class="item item-icon-left topless assertive" ng-repeat="error in errors.username">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" ng-model="model.password" placeholder="*********">
+                </label>
+                <div class="item item-icon-left topless assertive" ng-repeat="error in errors.password">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Password Confirm</span>
+                    <input type="password" ng-model="model.password_confirm" placeholder="*********">
+                </label>
+                <div class="item item-icon-left topless assertive" ng-repeat="error in errors.password">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+                <div class="item item-icon-left topless assertive" ng-repeat="error in errors.non_field_errors">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+                <div class="item item-icon-left topless assertive" ng-if="error">
+                    <i class="icon ion-alert-circled"></i>
+                    <span>{{error}}</span>
+                </div>
+            </div>
+            <div class="padding">
+                <button class="button button-block button-positive" type="submit">Register</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

@@ -1,8 +1,7 @@
-<ion-view view-title="Homeboard">
-    <ion-nav-bar class="bar-dark"></ion-nav-bar>
+<ion-view view-title="Login">
     <ion-content>
         <form role="form" ng-submit="login(loginForm)" name="loginForm" novalidate>
-            <div class="list">
+            <div class="list list-inset">
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Username</span>
                     <input type="text" ng-model="model.username" placeholder="Username">
@@ -27,9 +26,9 @@
                     <i class="icon ion-alert-circled"></i>
                     <span>{{error}}</span>
                 </div>
-                <label class="item">
-                    <button class="button button-block button-positive" type="submit">Log in</button>
-                </label>
+            </div>
+            <div class="padding">
+                <button class="button button-block button-positive" type="submit">Log in</button>
             </div>
         </form>
     </ion-content>
