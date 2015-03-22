@@ -2,7 +2,7 @@ angular.module('homeboard')
     .factory('dataFactory', ['$http', '$localStorage', function($http, $localStorage) {
 
     var dataFactory = {
-        'API_URL': 'http://localhost:8000/api',
+        'API_URL': 'http://107.170.232.37/api',
         'getHomes': function() {
             return $http.get(this.API_URL + '/homes/');
         },
