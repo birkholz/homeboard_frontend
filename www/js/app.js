@@ -15,6 +15,7 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
             var requireLogin = toState.data.requireLogin;
             var blockLoggedIn = toState.data.blockLoggedIn;
@@ -46,7 +47,8 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
                 controller: 'LoginCtrl',
                 data: {
                     requireLogin: false,
-                    blockLoggedIn: true
+                    blockLoggedIn: true,
+                    showToggle: false
                 }
             })
 
@@ -57,7 +59,8 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
                 controller: 'AppCtrl',
                 data: {
                     requireLogin: true,
-                    blockLoggedIn: false
+                    blockLoggedIn: false,
+                    showToggle: false
                 }
             })
 
@@ -109,7 +112,10 @@ angular.module('homeboard', ['ionic', 'homeboard.controllers', 'ngStorage', 'ngC
             })
 
             .state('app.chores', {
-               url: "/chores",
+                url: "/chores",
+                data: {
+                    showToggle: true
+                },
                 views: {
                     'menuContent': {
                         templateUrl: "templates/chores.html",

@@ -74,10 +74,57 @@ angular.module('homeboard.controllers', [])
     })
 
     .controller('ChoresCtrl', function ($scope, dataFactory, $ionicPopup) {
-        dataFactory.getChores()
-            .success(function(chores) {
-                $scope.chores = chores;
-            });
+        $scope.toggle = false;
+
+        refreshChores = function() {
+            if ($scope.toggle) {
+                dataFactory.getCompletedChores()
+                    .success(function(chores) {
+                        $scope.chores = chores;
+                    });
+            }
+            else {
+                dataFactory.getChores()
+                    .success(function(chores) {
+                        $scope.chores = chores;
+                    });
+            }
+        };
+
+        refreshChores();
+
+        $scope.doToggle = function(){
+            $scope.toggle = !$scope.toggle;
+            refreshChores();
+        };
+
+        $scope.completeChore = function(chore) {
+            chore['completed'] = new Date();
+            dataFactory.updateChore(chore)
+                .then(function(data) {
+                    refreshChores();
+                }, function(data) {
+                   var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: str(data)
+                    });
+                    alertPopup.then(function(res){})
+                });
+        };
+
+        $scope.uncompleteChore = function(chore) {
+            chore['completed'] = null;
+            dataFactory.updateChore(chore)
+                .then(function(data) {
+                    refreshChores();
+                }, function(data) {
+                   var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: str(data)
+                    });
+                    alertPopup.then(function(res){})
+                });
+        };
 
         $scope.confirmDeleteChore = function(chore) {
             var confirmPopup = $ionicPopup.confirm({
@@ -88,10 +135,7 @@ angular.module('homeboard.controllers', [])
                 if(res) {
                     dataFactory.deleteChore(chore.id)
                         .then(function(data) {
-                            dataFactory.getChores()
-                                .success(function(chores) {
-                                    $scope.chores = chores;
-                                });
+                            refreshChores()
                         }, function(data) {
                             var alertPopup = $ionicPopup.alert({
                                 title: 'Error',

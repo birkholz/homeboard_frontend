@@ -21,6 +21,9 @@ angular.module('homeboard')
         'getChores': function() {
             return $http.get(this.API_URL + '/chores/?home=' + $localStorage.selected_home.id)
         },
+        'getCompletedChores': function() {
+            return $http.get(this.API_URL + '/chores/?completed=True&home=' + $localStorage.selected_home.id)
+        },
         'insertChore': function(chore) {
             return $http.post(this.API_URL + '/chores/', chore)
         },
